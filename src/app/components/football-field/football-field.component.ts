@@ -71,17 +71,35 @@ export class FootballFieldComponent {
     });
   }
 
-  public drop(event: CdkDragDrop<IPlayer[]>) {
-    console.log(event.container);
+  public drop(event: CdkDragDrop<IPlayer[]>) {  
     if (event.previousContainer === event.container) {
-      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+      moveItemInArray(
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+      );
     } else {
-      if (event.container.data.length === 0 || event.container.id === 'players-list') {
+      const previousContainerData = event.previousContainer.data;
+      const currentContainerData = event.container.data;
+  
+      if (event.container.id === 'players-list') {
         transferArrayItem(
-          event.previousContainer.data,
-          event.container.data,
+          previousContainerData,
+          currentContainerData,
           event.previousIndex,
           event.currentIndex
+        );
+      } else {
+        if (currentContainerData.length > 0) {
+          previousContainerData.push(currentContainerData[0]);
+          currentContainerData.splice(0, 1);
+        }
+  
+        transferArrayItem(
+          previousContainerData,
+          currentContainerData,
+          event.previousIndex,
+          0
         );
       }
     }
