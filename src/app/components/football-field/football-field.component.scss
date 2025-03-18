@@ -1,0 +1,98 @@
+@mixin photo {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.football-filed {
+  &__wrapper {
+    display: flex;
+    gap: 1.5rem;
+    padding: 1.5rem;
+  }
+
+  &__players-list {
+    width: 18rem;
+    background-color: #f5f5f5;
+    padding: 1rem;
+    border-radius: .5rem;
+
+    &__item {
+      background-color: white;
+      padding: .75rem;
+      margin-bottom: 1rem;
+      border-radius: .25rem;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      cursor: move;
+    }
+
+    &__content {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+    }
+
+    &__photo {
+      @include photo;
+    }
+  }
+
+  &__field {
+    border-radius: .5rem;
+    overflow: hidden;
+    width: 40rem;
+    height: 60rem;
+    position: relative;
+
+    &__background {
+      width: 40rem;
+    }
+
+    &__positions {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    &__cell {
+      position: absolute;
+      width: 6rem;
+      height: 4rem;
+      transform: translate(-50%, -50%);
+      background-color: rgba(255, 255, 255, 0.7);
+      border: 2px dashed #666;
+      border-radius: .25rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &__placeholder {
+        color: #666;
+        font-size: .75rem;
+        text-align: center;
+      }
+
+      &__player {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: .25rem;
+      }
+
+      &__photo {
+        @include photo;
+      }
+
+      &__player-info {
+        display: flex;
+        gap: .5rem;
+        text-align: center;
+        font-size: .75rem;
+        margin-top: .25rem;
+      }
+    }
+  }
+}

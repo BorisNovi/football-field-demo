@@ -1,0 +1,55 @@
+<div class="football-filed__wrapper">
+  <div class="football-filed__players-list" 
+       cdkDropList 
+       id="players-list"
+       [cdkDropListData]="players" 
+       [cdkDropListConnectedTo]="connectedDropLists"
+       (cdkDropListDropped)="drop($event)">
+    <h3>Игроки</h3>
+    @for (player of players; track player.id) {
+      <div class="football-filed__players-list__item" cdkDrag>
+        <div class="football-filed__players-list__content">
+          <img [src]="player.photoUrl" alt="{{player.lastName}}" class="football-filed__players-list__photo">
+          <span>№{{player.number}}</span>
+          <span>{{player.firstName}} {{player.lastName}}</span>
+        </div>
+      </div>
+    }
+  </div>
+
+
+  <div class="football-filed__field">
+    <img class="football-filed__field__background" src="assets/images/Football_field.svg" alt="football field">
+    <div class="football-filed__field__positions">
+      @for (position of fieldPositions; track position.id) {
+        <div class="football-filed__field__cell"
+          [style.left.%]="position.x"
+          [style.top.%]="position.y"
+          cdkDropList
+          [id]="position.id"
+          [cdkDropListData]="position.players"
+          [cdkDropListConnectedTo]="connectedDropLists"
+          (cdkDropListDropped)="drop($event)">
+
+          @if (position.players.length === 0) {
+           <div class="football-filed__field__cell__placeholder">
+             Перетащите игрока сюда
+           </div>
+          }
+
+          @if (position.players.length > 0) {
+            <div class="football-filed__field__cell__player" cdkDrag>
+              <img [src]="position.players[0].photoUrl" alt="{{position.players[0].lastName}}" class="football-filed__field__cell__photo">
+              <div class="football-filed__field__cell__player-info">
+                <span>№{{position.players[0].number}}</span>
+                <span>{{position.players[0].lastName}}</span>
+              </div>
+            </div>
+          }
+        </div>
+      }
+
+    </div>
+  </div>
+
+</div>
